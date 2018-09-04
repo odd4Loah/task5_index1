@@ -5,6 +5,8 @@ public class StudentInfo {
 
     private String username;
 
+    private String salt;
+
     private String pwd;
 
     private Long createAt;
@@ -24,9 +26,10 @@ public class StudentInfo {
     public StudentInfo() {
     }
 
-    public StudentInfo(Long id, String username, String pwd, Long createAt, Long expireAt, Long qq, String email, String address, Long phone, Integer status) {
+    public StudentInfo(Long id, String username, String salt, String pwd, Long createAt, Long expireAt, Long qq, String email, String address, Long phone, Integer status) {
         this.id = id;
         this.username = username;
+        this.salt = salt;
         this.pwd = pwd;
         this.createAt = createAt;
         this.expireAt = expireAt;
@@ -51,6 +54,14 @@ public class StudentInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getPwd() {
@@ -122,6 +133,7 @@ public class StudentInfo {
         return "StudentInfo{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", salt='" + salt + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", createAt=" + createAt +
                 ", expireAt=" + expireAt +

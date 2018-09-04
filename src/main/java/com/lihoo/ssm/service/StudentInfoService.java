@@ -13,7 +13,7 @@ public interface StudentInfoService {
 
     int updateByPrimaryKey(StudentInfo record);
 
-    int insert(StudentInfo record);
+    int insert(StudentInfo studentInfo);
 
     StudentInfo selectByPrimaryKey(Long id);
 
@@ -21,5 +21,6 @@ public interface StudentInfoService {
 
     StudentInfo selectByPwd(String pwd);
 
+    Boolean verifyPwd(StudentInfo studentInfo);
 
 }

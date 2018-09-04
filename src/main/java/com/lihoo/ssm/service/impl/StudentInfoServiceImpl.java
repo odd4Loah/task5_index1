@@ -3,10 +3,13 @@ package com.lihoo.ssm.service.impl;
 import com.lihoo.ssm.dao.StudentInfoMapper;
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.service.StudentInfoService;
+import com.lihoo.ssm.util.AddSalt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.lihoo.ssm.util.MD5Utils.getPwdHash;
 
 /**
  * #Title: StudentInfoServiceImpl
@@ -41,6 +44,16 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public int insert(StudentInfo record) {
         return studentInfoMapper.insert(record);
     }
+
+    @Override
+    public Boolean verifyPwd(StudentInfo studentInfo) {
+        StudentInfo studentInfo1 = studentInfoMapper.selectByUsername(studentInfo.getUsername());
+        String salt = studentInfo1.getSalt();
+        String loginPwdHash = getPwdHash(studentInfo.getPwd(), salt);
+        return studentInfo1.getPwd().equals(loginPwdHash);
+    }
+
+
 
     @Override
     public StudentInfo selectByPrimaryKey(Long id) {

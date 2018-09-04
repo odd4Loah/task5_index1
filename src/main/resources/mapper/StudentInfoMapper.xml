@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.lihoo.ssm.model.StudentInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="create_at" jdbcType="BIGINT" property="createAt" />
     <result column="expire_at" jdbcType="BIGINT" property="expireAt" />
@@ -21,6 +22,7 @@
   <update id="updateByPrimaryKey" parameterType="com.lihoo.ssm.model.StudentInfo">
     update student_info
     set username = #{username,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},
       create_at = #{createAt,jdbcType=BIGINT},
       expire_at = #{expireAt,jdbcType=BIGINT},
@@ -33,7 +35,7 @@
   </update>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, username, pwd, create_at, expire_at, qq, email, address, phone, status
+    select id, username, salt, pwd, create_at, expire_at, qq, email, address, phone, status
     from student_info
   </select>
 
@@ -41,18 +43,19 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into student_info (id, username, pwd,
+    insert into student_info (id, username, salt, pwd,
     create_at, expire_at, qq,
     email, address, phone,
     status)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
+    #{pwd,jdbcType=VARCHAR},
     #{createAt,jdbcType=BIGINT}, #{expireAt,jdbcType=BIGINT}, #{qq,jdbcType=BIGINT},
     #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT},
     #{status,jdbcType=INTEGER})
   </insert>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, username, pwd, create_at, expire_at, qq, email, address, phone, status
+    select id, username, salt, pwd, create_at, expire_at, qq, email, address, phone, status
     from student_info
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -68,5 +71,10 @@
     FROM student_info
     WHERE pwd = #{pwd}
   </select>
+
+  <!--<select id="getPwd" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+    <!--SELECT pwd-->
+    <!--FROM student_info-->
+  <!--</select>-->
 
 </mapper>

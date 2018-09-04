@@ -6,14 +6,14 @@
 $(document).ready(function () {
     $('#sign-in').click(function () {
         //获取input数据
-        var user = $('#result1').val();
-        var code = $('#result2').val();
+        var user = $('#loginname').val();
+        var code = $('#pwd').val();
         console.log(user);
         console.log(code);
         var xmlhttp;
         var params = {};        //新建一个空的对象
-        params.name=$('#result1').val();
-        params.pwd=$('#result2').val();
+        params.name=$('#loginname').val();
+        params.pwd=$('#pwd').val();
         console.log(params);
         //浏览器兼容
         if (window.XMLHttpRequest)
@@ -42,6 +42,7 @@ $(document).ready(function () {
         xmlhttp.send($.param(params));
     });
 });
+
 function keyLogin() {
     if (event.keyCode === 13)  //回车键的键值为13
         $('#sign-in').click(); //调用登录按钮的登录事件

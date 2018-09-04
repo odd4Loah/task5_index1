@@ -7,6 +7,7 @@ import java.util.List;
 
 @Component
 public interface StudentInfoMapper {
+
     int deleteByPrimaryKey(Long id);
 
     List<StudentInfo> selectAll();

@@ -21,8 +21,7 @@
 <%--<tiles:insertAttribute name="login" />--%>
 <%--<tiles:insertAttribute name="join" />--%>
 
-<tiles:insertAttribute name="body" />
-
+    <tiles:insertAttribute name="body" />
 
 <script src="${pageContext.request.contextPath}/js/backLogin.js"></script>
 </body>

@@ -862,189 +862,194 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="214" parent="202" name="pwd">
+    <column id="214" parent="202" name="salt">
       <Position>3</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="215" parent="202" name="pwd">
+      <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="215" parent="202" name="create_at">
-      <Position>4</Position>
-      <DataType>bigint(13)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="216" parent="202" name="expire_at">
+    <column id="216" parent="202" name="create_at">
       <Position>5</Position>
-      <DataType>bigint(13)|0s</DataType>
+      <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="217" parent="202" name="qq">
+    <column id="217" parent="202" name="expire_at">
       <Position>6</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="218" parent="202" name="qq">
+      <Position>7</Position>
       <DataType>bigint(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="218" parent="202" name="email">
-      <Position>7</Position>
+    <column id="219" parent="202" name="email">
+      <Position>8</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="219" parent="202" name="address">
-      <Position>8</Position>
+    <column id="220" parent="202" name="address">
+      <Position>9</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="220" parent="202" name="phone">
-      <Position>9</Position>
+    <column id="221" parent="202" name="phone">
+      <Position>10</Position>
       <DataType>bigint(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="221" parent="202" name="status">
-      <Position>10</Position>
+    <column id="222" parent="202" name="status">
+      <Position>11</Position>
       <DataType>int(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="222" parent="202" name="PRIMARY">
+    <key id="223" parent="202" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="223" parent="203" name="id">
+    <column id="224" parent="203" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="224" parent="203" name="username">
+    <column id="225" parent="203" name="username">
       <Position>2</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="225" parent="203" name="qq_num">
+    <column id="226" parent="203" name="qq_num">
       <Position>3</Position>
       <DataType>bigint(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="226" parent="203" name="study_type">
+    <column id="227" parent="203" name="study_type">
       <Position>4</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="227" parent="203" name="study_time">
+    <column id="228" parent="203" name="study_time">
       <Position>5</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="228" parent="203" name="school">
+    <column id="229" parent="203" name="school">
       <Position>6</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="229" parent="203" name="study_id">
+    <column id="230" parent="203" name="study_id">
       <Position>7</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="230" parent="203" name="daily_link">
+    <column id="231" parent="203" name="daily_link">
       <Position>8</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="203" name="promise">
+    <column id="232" parent="203" name="promise">
       <Position>9</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="203" name="teach_bro">
+    <column id="233" parent="203" name="teach_bro">
       <Position>10</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="203" name="know_us_from">
+    <column id="234" parent="203" name="know_us_from">
       <Position>11</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="234" parent="203" name="create_at">
+    <column id="235" parent="203" name="create_at">
       <Position>12</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="203" name="update_at">
+    <column id="236" parent="203" name="update_at">
       <Position>13</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="236" parent="203" name="AUTHOR_INDEX">
+    <index id="237" parent="203" name="AUTHOR_INDEX">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="237" parent="203" name="PRIMARY">
+    <key id="238" parent="203" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="238" parent="203" name="AUTHOR_INDEX">
+    <key id="239" parent="203" name="AUTHOR_INDEX">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>AUTHOR_INDEX</UnderlyingIndexName>
     </key>
-    <column id="239" parent="204" name="id">
+    <column id="240" parent="204" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="204" name="job">
+    <column id="241" parent="204" name="job">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="204" name="job_info">
+    <column id="242" parent="204" name="job_info">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="204" name="salary1">
+    <column id="243" parent="204" name="salary1">
       <Position>4</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="204" name="salary2">
+    <column id="244" parent="204" name="salary2">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="204" name="salary3">
+    <column id="245" parent="204" name="salary3">
       <Position>6</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="204" name="hover_info">
+    <column id="246" parent="204" name="hover_info">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="246" parent="204" name="create_at">
+    <column id="247" parent="204" name="create_at">
       <Position>8</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="204" name="update_at">
+    <column id="248" parent="204" name="update_at">
       <Position>9</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="248" parent="204" name="PRIMARY">
+    <key id="249" parent="204" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

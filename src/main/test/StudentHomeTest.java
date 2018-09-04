@@ -32,9 +32,7 @@ public class StudentHomeTest {
     public void testAllStudents() {
         logger.debug("查找所有学生");
         List<StudentHome> list = studentHomeMapper.selectAll();
-
-        for (StudentHome allStus :
-                list) {
+        for (StudentHome allStus : list) {
             logger.debug(allStus);
         }
 
@@ -85,24 +83,5 @@ public class StudentHomeTest {
         logger.debug("查询成功");
     }
 
-    @Autowired
-    StudentInfoMapper studentInfoMapper;
 
-    @Test
-    public void testFindwithPwd() {
-        logger.debug("开始***");
-        StudentInfo withPwd = studentInfoMapper.selectByPwd("123");
-
-        logger.debug("通过密码查找出信息::" + withPwd);
-        logger.debug("李浩:查询结束");
-    }
-
-    @Test
-    public void testFindwithUsername() {
-        logger.debug("$$$$$$$$$$$$$$$$$");
-        StudentInfo  withUsername = studentInfoMapper.selectByUsername("123");
-
-        logger.debug("通过密码查找出信息::" + withUsername);
-        logger.debug("$$$$$$$$$$$$$$$$$");
-    }
 }
