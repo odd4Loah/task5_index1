@@ -4,6 +4,8 @@ import com.lihoo.ssm.dao.StudentInfoMapper;
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.service.StudentInfoService;
 import com.lihoo.ssm.util.AddSalt;
+import com.lihoo.ssm.util.MD5Util;
+import com.lihoo.ssm.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,8 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public int updateByPrimaryKey(StudentInfo record) {
         return studentInfoMapper.updateByPrimaryKey(record);
     }
+
+
 
     @Override
     public int insert(StudentInfo record) {

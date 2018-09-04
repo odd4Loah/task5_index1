@@ -22,9 +22,15 @@
                 <a href="#"><img class="head-icon" src="${pageContext.request.contextPath}/img/weibo.png" alt=""></a>
 
                 <div class="login-regs">
-                    <a href="${pageContext.request.contextPath}/login">登录</a>
+                    <a href="${pageContext.request.contextPath}/login">
+                        登录
+                        <%--用户名：--%>
+                    </a>
                     <a href="#">|</a>
-                    <a href="${pageContext.request.contextPath}/join">注册</a>
+                    <a href="${pageContext.request.contextPath}/join">
+                        注册
+                        <%--退出--%>
+                    </a>
                 </div>
 
             </div>

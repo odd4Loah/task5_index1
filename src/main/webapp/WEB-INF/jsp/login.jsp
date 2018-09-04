@@ -22,7 +22,6 @@
                         <button class="btn login-btn">
                             <a href="${pageContext.request.contextPath}/" style="color: #ffffff;">返回神奈川</a>
                         </button>
-
                     </div>
                 </div>
 

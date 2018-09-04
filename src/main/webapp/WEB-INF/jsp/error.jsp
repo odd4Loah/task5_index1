@@ -10,10 +10,10 @@
 
 <%@ include file="../includes/includes.jsp" %>
 
-<body>
-<h5>注册成功！！！</h5>
-<h2>跳转到登陆页面</h2>
-<button>
-    <a href=""></a>
+<body style="text-align: center;background: #000cdc;color: #eaeaea">
+<h1>登录失败！！！</h1>
+<h2>看看是不是账号和密码哪一个填错了？</h2>
+<button style="font-size: xx-large">
+    <a href="${pageContext.request.contextPath}/login">重新登录</a>
 </button>
 </body>

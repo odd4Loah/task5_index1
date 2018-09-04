@@ -28,6 +28,12 @@
                            cursor: pointer; width: 200px; background: #e9cda800;
                            position: absolute; top: 90px; right: 155px;">
         </a>
+        <a href="${pageContext.request.contextPath}/join">
+            <input type="button" value="点击注册"
+                   style="font-family: 楷体; font-size: 30px; border: none;
+                           cursor: pointer; width: 200px; background: #e9cda800;
+                           position: absolute; top: 140px; right: 155px;">
+        </a>
 
     </div>
 </div>

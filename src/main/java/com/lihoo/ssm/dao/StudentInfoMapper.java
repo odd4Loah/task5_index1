@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author lihoo
+ */
 @Component
 public interface StudentInfoMapper {
 

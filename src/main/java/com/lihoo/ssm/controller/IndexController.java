@@ -33,6 +33,7 @@ import static com.lihoo.ssm.util.MD5Utils.getPwdHash;
  * #Description: TODO
  * #author lihoo
  * #date 2018/8/28-15:18
+ * @author lihoo
  */
 
 @Controller
@@ -44,14 +45,18 @@ public class IndexController {
     @Autowired
     StudentInfoService studentInfoService;
 
-//    请求注册数据
+    /**
+     请求注册数据
+     */
     @RequestMapping(value ="/join", method = RequestMethod.GET)
     public String joinForm() {
         logger.debug("join GET 方法被调用……");
         return "join.pa";
     }
 
-//    注册
+    /**
+     注册
+     */
     @RequestMapping(value ="/join", method = RequestMethod.POST)
     public String join(@RequestParam("username") String username,
                        @RequestParam("pwd") String pwd) {
@@ -68,52 +73,69 @@ public class IndexController {
         logger.debug("打印添加的用户信息: " + "用户名:"+username+"密码:"+pwd);
         logger.debug("打印添加的用户信息: " + joinUser);
 
-//        model.addAttribute("username", username);
-//        model.addAttribute("joinin", joinin);
+        return "main.home";
+    }
 
+    /**
+     请求直接登陆页面
+     */
+    @RequestMapping(value ="/login", method = RequestMethod.GET)
+    public String loginForm() {
+        logger.debug("login GET 方法被调用……");
         return "login.pa";
     }
 
 
-//    登陆
-    @RequestMapping(value = "/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("pwd") String pwd,
+    /**
+     登陆
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@RequestParam(value = "username",required = false) String username,
+                        @RequestParam(value = "pwd",required = false) String pwd,
                         Model model) {
 //        查：全部数据
-        logger.debug("获取数据库表中全部用户信息");
+//        logger.debug("获取数据库表中全部用户信息");
         List<StudentInfo> studentList = studentInfoService.selectAll();
-        for (StudentInfo list : studentList) {
+//        for (StudentInfo list : studentList) {
 //            logger.debug("数据库用户信息：" + list);
-            logger.debug("用户名：" + list.getUsername() + "密码：" + list.getPwd() + "盐：" + list.getSalt());
-        }
+//            logger.debug("用户名：" + list.getUsername() + "密码：" + list.getPwd() + "盐：" + list.getSalt());
+//        }
 //        验证用户名是否在数据库中
 
 //        通过用户名取出本条数据
-        StudentInfo  withUsername = studentInfoService.selectByUsername(username);
-        logger.debug(withUsername);
-//        获取数据库中的盐
-        String dbSalt = withUsername.getSalt();
-        logger.debug("数据库中的盐:"+ dbSalt);
-//        本次输入的密码
-        logger.debug("****本次输入的密码****");
-        logger.debug("登录名："+ username +" 密码："+ pwd);
-//        获取数据库中的密码
-        String dbPwd = withUsername.getPwd();
-        logger.debug("****数据库中取出来的密码****");
+//        StudentInfo withUsername = studentInfoService.selectByUsername(username);
+//        logger.debug(withUsername);
+////        获取数据库中的盐
+//        String dbSalt = withUsername.getSalt();
+//        logger.debug("数据库中的盐:"+ dbSalt);
+////        本次输入的密码
+//        logger.debug("****本次输入的密码****");
+//        logger.debug("登录名："+ username +" 密码："+ pwd);
+////        获取数据库中的密码
+//        String dbPwd = withUsername.getPwd();
+//        logger.debug("****数据库中取出来的密码****");
 //        logger.debug("数据库中的密码:"+ dbPwd);
-        logger.debug("登录名："+ username +" 密码："+ dbPwd);
-        //        数据库中取出来的salt
-        String salt = withUsername.getSalt();
-        logger.debug("****数据库中取出来的salt****");
-        logger.debug("登录名："+ username +" 密码："+ salt);
-        //        将输入的密码MD5加盐之后的密码
-        String loginPwdHash = getPwdHash(pwd, salt);
-        logger.debug("****将输入的密码, MD5加盐之后的密码****");
-        logger.debug("登录名："+ username +" 密码："+ loginPwdHash);
+//        logger.debug("登录名："+ username +" 密码："+ dbPwd);
+
+//                数据库中取出来的salt
+//        String salt = withUsername.getSalt();
+//        logger.debug("****数据库中取出来的salt****");
+//        logger.debug("登录名："+ username +" 密码："+ salt);
+//                将输入的密码MD5加盐之后的密码
+//        String loginPwdHash = getPwdHash(pwd, salt);
+//        logger.debug("****将输入的密码, MD5加盐之后的密码****");
+//        logger.debug("登录名："+ username +" 密码："+ loginPwdHash);
 //        验证用户输入密码是否与数据库保存密码一致
-        Boolean isPwdSame =  withUsername.getPwd().equals(loginPwdHash);
-        logger.debug("验证用户输入密码是否与数据库保存密码一致: "+ isPwdSame);
+//        Boolean isPwdSame =  withUsername.getPwd().equals(loginPwdHash);
+//        logger.debug("验证用户输入密码是否与数据库保存密码一致: "+ isPwdSame);
+
+        StudentInfo loginUser = new StudentInfo();
+        loginUser.setUsername(username);
+        logger.debug("皮皮虾用户名："+username);
+        loginUser.setPwd(pwd);
+        logger.debug("输入的密码："+pwd);
+        Boolean isPwdSame = studentInfoService.verifyPwd(loginUser);
+        logger.debug(isPwdSame);
 //        到集合中查找用户是否存在
         for (StudentInfo stuInfo : studentList) {
             if (stuInfo.getUsername().equals(username) && isPwdSame) {
@@ -123,21 +145,19 @@ public class IndexController {
             }
         }
         logger.debug("数据库匹配用户名&密码####失败####");
-        return "login.pa";
+        return "error.pa";
     }
 
 
     @Autowired
     StudentHomeService studentHomeService;
-
+//  主页
     @RequestMapping("/index")
     public String home(Model model) {
         List<StudentHome> selectGreatStudent = studentHomeService.selectGreatStudent();
         int countAll = studentHomeService.countAll();
         int workingCount = studentHomeService.workingCount();
 
-//        String a = selectGreatStudent.toString();
-//        logger.debug( "wow:"+a);
 
         model.addAttribute("selectGreatStudent", selectGreatStudent);
         model.addAttribute("countAll", countAll);
@@ -148,7 +168,7 @@ public class IndexController {
 
     @Autowired
     StudentProfessionService studentProfessionService;
-
+//  职业
     @RequestMapping("/profession")
     public String profession(Model model) {
         List<StudentProfession> selectAll = studentProfessionService.selectAll();
@@ -159,7 +179,7 @@ public class IndexController {
 
         return "profession.home";
     }
-
+//  推荐
     @RequestMapping("/recommend")
     public String recommend(Model model, ModelMap modelMap) {
 
