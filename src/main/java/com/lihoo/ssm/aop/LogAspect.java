@@ -1,6 +1,7 @@
 package com.lihoo.ssm.aop;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +22,7 @@ import java.util.Date;
 @Aspect
 @Component
 public class LogAspect {
-    private static Logger logger = Logger.getLogger(LogAspect.class);
+    private static Logger logger = LogManager.getLogger(LogAspect.class);
 
 
     //
@@ -33,7 +34,7 @@ public class LogAspect {
     //    joinPoint连接点
     @Around(value = "serviceAspect()")
     public Object around1(ProceedingJoinPoint pjp) throws Throwable {
-        logger.debug("开始切面");
+        logger.info("开始切面");
 //        获取组件类名
         String className = pjp.getTarget().getClass().getName();
 //        获取调用方法名
@@ -50,7 +51,7 @@ public class LogAspect {
         int sqlTime = (int) (end_conn - start_conn);
         String msg = date + ",执行了" + className +"." + method +"()";
 
-        logger.debug(msg + "\t数据库响应时间：" + sqlTime + "ms");
+        logger.info(msg + "\t数据库响应时间：" + sqlTime + "ms");
         return obj;
     }
 
@@ -64,7 +65,7 @@ public class LogAspect {
     //    joinPoint连接点
     @Around(value = "controlAspect()")
     public Object around2(ProceedingJoinPoint pjp) throws Throwable {
-//        logger.debug("开始切面");
+//        logger.info("开始切面");
 //        获取组件类名
         String className = pjp.getTarget().getClass().getName();
 //        获取调用方法名
@@ -81,7 +82,7 @@ public class LogAspect {
         int sqlTime = (int) (end_conn - start_conn);
         String msg = date + ",执行了" + className +"." + method +"()";
 
-        logger.debug(msg + "\t数据库响应时间：" + sqlTime + "ms");
+        logger.info(msg + "\t数据库响应时间：" + sqlTime + "ms");
         return obj;
     }
 }

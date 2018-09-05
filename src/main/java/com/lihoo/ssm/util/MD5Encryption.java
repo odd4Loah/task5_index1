@@ -7,7 +7,8 @@ import com.lihoo.ssm.dao.StudentInfoMapper;
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.service.StudentInfoService;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
 @Component
 @SuppressWarnings("unused")
 public class MD5Encryption {
-    private static Logger logger = Logger.getLogger(MD5Encryption.class);
+    private static Logger logger = LogManager.getLogger(MD5Encryption.class);
     private MD5Encryption() {
 
     }

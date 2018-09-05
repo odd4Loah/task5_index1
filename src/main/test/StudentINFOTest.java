@@ -2,7 +2,8 @@ import com.lihoo.ssm.dao.StudentInfoMapper;
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.util.MD5Encryption;
 import com.lihoo.ssm.util.MD5Utils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,40 +24,45 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class StudentINFOTest {
-    private static Logger logger = Logger.getLogger(StudentINFOTest.class);
+    private static Logger logger = LogManager.getLogger(StudentINFOTest.class);
 
     @Autowired
     StudentInfoMapper studentInfoMapper;
 
 //    @Test
 //    public void testPwd() {
-//        logger.debug("开始查询密码");
+//        logger.info("开始查询密码");
 //        String password = studentInfoMapper.getPwd();
-//        logger.debug(password);
+//        logger.info(password);
 //    }
 
     @Test
     public void testFindwithPwd() {
-        logger.debug("开始***");
+        logger.info("开始***");
         StudentInfo withPwd = studentInfoMapper.selectByPwd("123");
 
-        logger.debug("通过密码查找出信息::" + withPwd);
-        logger.debug("李浩:查询结束");
+        logger.info("通过密码查找出信息::" + withPwd);
+        logger.info("李浩:查询结束");
+
+
+
+        logger.info("我是新来的打印日志选手，请多多指教！！！log4j2");
+        logger.info("log4j2*******");
     }
 
     @Test
     public void testFindwithUsername() {
-        logger.debug("$$$$$$$$$$$$$$$$$");
+        logger.info("$$$$$$$$$$$$$$$$$");
         StudentInfo  withUsername = studentInfoMapper.selectByUsername("123");
 
-        logger.debug("通过用户名查找出信息::" + withUsername);
-        logger.debug("通过用户名查找出信息::" + withUsername.getSalt());
-        logger.debug("$$$$$$$$$$$$$$$$$");
+        logger.info("通过用户名查找出信息::" + withUsername);
+        logger.info("通过用户名查找出信息::" + withUsername.getSalt());
+        logger.info("$$$$$$$$$$$$$$$$$");
     }
 
     @Test
     public void testAddUser() throws UnsupportedEncodingException {
-        logger.debug("开始注册用户");
+        logger.info("开始注册用户");
 
         StudentInfo uInfo = new StudentInfo();
 
@@ -74,19 +80,19 @@ public class StudentINFOTest {
         uInfo.setStatus(1);
         studentInfoMapper.insert(uInfo);
 
-        logger.debug(uInfo);
-        logger.debug("添加成功");
+        logger.info(uInfo);
+        logger.info("添加成功");
 
     }
 
     @Test
     public void testFindAll() {
-        logger.debug("获取数据库表中全部用户信息");
+        logger.info("获取数据库表中全部用户信息");
         List<StudentInfo> studentList = studentInfoMapper.selectAll();
         for (StudentInfo list : studentList) {
-            logger.debug("数据库用户信息：" + list);
+            logger.info("数据库用户信息：" + list);
         }
 
-        logger.debug( "用户信息：" + studentList);
+        logger.info( "用户信息：" + studentList);
     }
 }

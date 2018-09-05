@@ -1,6 +1,7 @@
 import com.lihoo.ssm.dao.StudentProfessionMapper;
 import com.lihoo.ssm.model.StudentProfession;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,50 +22,50 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class ProfessionTest {
-    private static Logger logger = Logger.getLogger(ProfessionTest.class);
+    private static Logger logger = LogManager.getLogger(ProfessionTest.class);
 
     @Autowired
     StudentProfessionMapper studentProfessionMapper;
 
     @Test
     public void testCountAll() {
-        logger.debug("开始查询");
+        logger.info("开始查询");
         int counts = studentProfessionMapper.countAll();
 
-        logger.debug(counts+"条");
+        logger.info(counts+"条");
 
     }
 
     @Test
     public void testProfessionInfo() {
-        logger.debug("开始查询");
+        logger.info("开始查询");
         List<StudentProfession> listPro = studentProfessionMapper.selectAll();
         for (StudentProfession stuInfo : listPro) {
-//            logger.debug("学生信息:"+ stuInfo);
-            logger.debug("学生职业选择:"+ stuInfo.getJob());
-            logger.debug("学生职业信息:"+ stuInfo.getJobInfo());
-            logger.debug("一阶薪资:"+ stuInfo.getSalary1());
-            logger.debug("二阶薪资:"+ stuInfo.getSalary2());
-            logger.debug("三阶薪资:"+ stuInfo.getSalary3());
-            logger.debug("浮动职业信息:"+ stuInfo.getHoverInfo());
-            logger.debug("创建时间:"+ stuInfo.getCreateAt());
-            logger.debug("修改时间:"+ stuInfo.getUpdateAt());
-            logger.debug("**********************************");
+//            logger.info("学生信息:"+ stuInfo);
+            logger.info("学生职业选择:"+ stuInfo.getJob());
+            logger.info("学生职业信息:"+ stuInfo.getJobInfo());
+            logger.info("一阶薪资:"+ stuInfo.getSalary1());
+            logger.info("二阶薪资:"+ stuInfo.getSalary2());
+            logger.info("三阶薪资:"+ stuInfo.getSalary3());
+            logger.info("浮动职业信息:"+ stuInfo.getHoverInfo());
+            logger.info("创建时间:"+ stuInfo.getCreateAt());
+            logger.info("修改时间:"+ stuInfo.getUpdateAt());
+            logger.info("**********************************");
 
         }
-        logger.debug("结束查询");
+        logger.info("结束查询");
     }
 
     @Test
     public void testJob() {
-        logger.debug("开始查询");
+        logger.info("开始查询");
         List<StudentProfession> jobList = studentProfessionMapper.findJob();
 
         for (StudentProfession list : jobList) {
-            logger.debug("职业："+ list);
+            logger.info("职业："+ list);
         }
 
 
-        logger.debug("结束查询");
+        logger.info("结束查询");
     }
 }

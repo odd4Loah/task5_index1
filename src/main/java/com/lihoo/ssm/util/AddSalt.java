@@ -1,7 +1,8 @@
 package com.lihoo.ssm.util;
 
 import com.lihoo.ssm.controller.IndexController;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -18,7 +19,7 @@ import static com.lihoo.ssm.util.MD5Utils.toHex;
 
 
 public class AddSalt {
-    private static Logger logger = Logger.getLogger(AddSalt.class);
+    private static Logger logger = LogManager.getLogger(AddSalt.class);
 
 
     public static String getSalt() {
@@ -28,7 +29,7 @@ public class AddSalt {
             secureRandom = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            logger.debug("抱歉，没有这个算法");
+            logger.info("抱歉，没有这个算法");
         }
         // 定义一个长度为16字节的字节数组(即128位,跟MD5的散列值保持一致)
         // 为了安全,一般盐值长度要大于等于散列值函数输出值长度

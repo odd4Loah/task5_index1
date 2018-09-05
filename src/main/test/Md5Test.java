@@ -1,6 +1,7 @@
 import com.lihoo.ssm.util.MD5Encryption;
 import com.lihoo.ssm.util.MD5Utils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,13 +24,13 @@ import static com.lihoo.ssm.util.MD5Util.getMD5;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class Md5Test {
-    private static Logger logger = Logger.getLogger(Md5Test.class);
+    private static Logger logger = LogManager.getLogger(Md5Test.class);
 
     @Test
     public void testmd5() throws Exception{
-        logger.debug("1111");
+        logger.info("1111");
         String pwd = MD5Encryption.getEncryption("buquhuisi4835");
-        logger.debug(pwd);
+        logger.info(pwd);
     }
 
     //    public static void main(String[] args) throws UnsupportedEncodingException {
@@ -43,23 +44,23 @@ public class Md5Test {
 //
 //////          大写MD5加密
 ////        String md5 = MD5("password21211212");
-////        logger.debug(md5);
+////        logger.info(md5);
 //////          小写MD5加密
 ////        String md52 = getMD5("password");
-////        logger.debug(md52);
+////        logger.info(md52);
 //
 //        String md_salt1 = MD5Encryption.getEncryption("123456");
-//        logger.debug(md_salt1);
+//        logger.info(md_salt1);
 //
 //        String md_salt2 = MD5Encryption.md5_salt("123456");
-//        logger.debug(md_salt2);
+//        logger.info(md_salt2);
 ////        String md_salt4 = MD5Encryption.md5_salt("888888");
-////        logger.debug(md_salt4);
+////        logger.info(md_salt4);
 //
 //        String a = "577f8783912b24278d160a4c012b60d3a133d20f31918a06";
 //        boolean md_salt_back =
 //                MD5Encryption.verify("123456", a);
-//        logger.debug(md_salt_back);
+//        logger.info(md_salt_back);
 //    }
 
 
@@ -68,14 +69,14 @@ public class Md5Test {
         // 原文
         String plaintext = "123";
         //  plaintext = "123456";202cb962ac597F5b964b7F152d234b70
-        logger.debug("原始：" + plaintext);
-        logger.debug("普通MD5后：" + MD5Encryption.getEncryption(plaintext));
-        logger.debug("随机盐：" + MD5Encryption.saltInDB());
+        logger.info("原始：" + plaintext);
+        logger.info("普通MD5后：" + MD5Encryption.getEncryption(plaintext));
+        logger.info("随机盐：" + MD5Encryption.saltInDB());
 
         // 获取加盐后的MD5值
         String ciphertext = MD5Encryption.md5_salt(plaintext);
-        logger.debug("加盐后MD5：" + ciphertext);
-        logger.debug("是否是同一字符串:" + MD5Encryption.verify(plaintext, ciphertext));
+        logger.info("加盐后MD5：" + ciphertext);
+        logger.info("是否是同一字符串:" + MD5Encryption.verify(plaintext, ciphertext));
         /**
          * 其中某次plaintext中字符串的MD5值
          */
@@ -84,7 +85,7 @@ public class Md5Test {
                               "e9987a215f2ae4563d73cb1c025c83d8da05767167c0cd34" };
 
         for (String temp : tempSalt) {
-            logger.debug("是否是同一字符串:" + MD5Encryption.verify(plaintext, temp));
+            logger.info("是否是同一字符串:" + MD5Encryption.verify(plaintext, temp));
         }
     }
 
@@ -92,14 +93,14 @@ public class Md5Test {
 
     @Test
     public void testmd5_2() throws UnsupportedEncodingException {
-        logger.debug("测试MD5");
+        logger.info("测试MD5");
 
         String pwd1 = MD5Encryption.getEncryption("123123");
 
         String pwd2 = MD5Utils.encryptPwd("123123", "0x3y95dt");
 
-        logger.debug("未加盐:" + pwd1);
-        logger.debug("加盐:" + pwd2);
+        logger.info("未加盐:" + pwd1);
+        logger.info("加盐:" + pwd2);
     }
 }
 

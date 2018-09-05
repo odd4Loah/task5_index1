@@ -3,7 +3,8 @@ package com.lihoo.ssm.util;
 import com.lihoo.ssm.dao.StudentInfoMapper;
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.service.StudentInfoService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 @Component
 @SuppressWarnings("unused")
 public class MD5Utils {
-    private static final Logger LOGGER = Logger.getLogger(MD5Utils.class);
+    private static final Logger LOGGER = LogManager.getLogger(MD5Utils.class);
 
     //    转十六进制
     public static String toHex(byte hash[]) {
@@ -118,8 +119,8 @@ public class MD5Utils {
 //          MD5加盐加密
         String md52 = encryptUsernamePwd("111","111", "111");
 
-        LOGGER.debug(md5_OG);
-        LOGGER.debug(md5_salt);
-        LOGGER.debug(md52);
+        LOGGER.info(md5_OG);
+        LOGGER.info(md5_salt);
+        LOGGER.info(md52);
     }
 }

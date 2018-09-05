@@ -1,6 +1,9 @@
 package com.lihoo.ssm.util;
 
-import org.apache.log4j.Logger;
+
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -17,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Util {
 
-    private static Logger logger = Logger.getLogger(MD5Util.class);
+    private static Logger logger = LogManager.getLogger(MD5Util.class);
     /**
      * 对字符串md5加密(小写+字母)
      *
