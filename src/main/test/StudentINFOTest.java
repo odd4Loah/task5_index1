@@ -38,16 +38,13 @@ public class StudentINFOTest {
 
     @Test
     public void testFindwithPwd() {
-        logger.info("开始***");
+        logger.info("开始查询");
         StudentInfo withPwd = studentInfoMapper.selectByPwd("123");
 
         logger.info("通过密码查找出信息::" + withPwd);
         logger.info("李浩:查询结束");
+        logger.error("真香警告");
 
-
-
-        logger.info("我是新来的打印日志选手，请多多指教！！！log4j2");
-        logger.info("log4j2*******");
     }
 
     @Test

@@ -88,7 +88,7 @@ public class IndexController {
 
 
     /**
-     登陆
+     登录验证，token加密，cookie生成发送
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(value = "username",required = false) String username,
