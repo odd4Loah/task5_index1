@@ -10,10 +10,20 @@
 
 <%@ include file="../includes/includes.jsp" %>
 
-<body style="text-align: center;background: #000cdc;color: #eaeaea">
-<h1>登录失败！！！</h1>
-<h2>看看是不是账号和密码哪一个填错了？</h2>
-<button style="font-size: xx-large">
-    <a href="${pageContext.request.contextPath}/login">重新登录</a>
-</button>
-</body>
+<div class="login-bgc">
+    <div class="container">
+        <div class="row log-main">
+            <form action="join" method="post">
+                <div class="log-table col-xs-9 col-sm-6 col-md-4 col-lg-4">
+                    <h2 style="color: #eea236">****登录失败****</h2>
+                    <div class="content1"><h4>看看是不是账号和密码哪一个填错了？</h4></div>
+                    <div>
+                        <a style="font-size: x-large" href="${pageContext.request.contextPath}/login">重新登录</a>
+                    </div>
+                    <div id="alert3"></div>
+                    <div id="alert4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

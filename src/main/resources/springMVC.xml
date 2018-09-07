@@ -85,6 +85,21 @@
         </property>
     </bean>
 
+    <!--配置springMVC拦截器, 多个拦截器,顺序执行 -->
+    <mvc:interceptors>
+        <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+        <!--<bean class=""></bean>-->
+        <mvc:interceptor>
+            <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="*/u/**"/>
+            <!--<mvc:mapping path="/profession"/>-->
+            <!--<mvc:mapping path="/recommend"/>-->
+            <bean class="com.lihoo.ssm.util.LoginInterceptor"/>
+        </mvc:interceptor>
+        <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+    </mvc:interceptors>
+
+
 
     <!--开放对上传功能的支持-->
     <bean id="multipartResolver"

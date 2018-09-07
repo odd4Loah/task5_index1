@@ -23,4 +23,6 @@ public interface StudentInfoService {
 
     Boolean verifyPwd(StudentInfo studentInfo);
 
+    int updateLoginTimeById(StudentInfo studentInfo);
+
 }

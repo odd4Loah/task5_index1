@@ -20,19 +20,19 @@ public class StudentInfoVO {
 
     private String pwd;
 
-    private Long createAt;
+    private Long logAt;
 
     private Long expireAt;
 
     public StudentInfoVO() {
     }
 
-    public StudentInfoVO(Long id, String username, String salt, String pwd, Long createAt, Long expireAt) {
+    public StudentInfoVO(Long id, String username, String salt, String pwd, Long logAt, Long expireAt) {
         this.id = id;
         this.username = username;
         this.salt = salt;
         this.pwd = pwd;
-        this.createAt = createAt;
+        this.logAt = logAt;
         this.expireAt = expireAt;
     }
 
@@ -68,12 +68,12 @@ public class StudentInfoVO {
         this.pwd = pwd;
     }
 
-    public Long getCreateAt() {
-        return createAt;
+    public Long getLogAt() {
+        return logAt;
     }
 
-    public void setCreateAt(Long createAt) {
-        this.createAt = createAt;
+    public void setLogAt(Long logAt) {
+        this.logAt = logAt;
     }
 
     public Long getExpireAt() {
@@ -91,7 +91,7 @@ public class StudentInfoVO {
                 ", username='" + username + '\'' +
                 ", salt='" + salt + '\'' +
                 ", pwd='" + pwd + '\'' +
-                ", createAt=" + createAt +
+                ", logAt=" + logAt +
                 ", expireAt=" + expireAt +
                 '}';
     }

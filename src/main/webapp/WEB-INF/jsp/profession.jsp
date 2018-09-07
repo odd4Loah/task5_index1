@@ -65,7 +65,6 @@
                                 <span class="group-1">
                                     <strong>
                                         <datetag:date value="${li.createAt}"/>
-                                        <%--<dsim:date_s value="${li.createAt}" />--%>
                                     </strong>
                                 </span>
                             </div>

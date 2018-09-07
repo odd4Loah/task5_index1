@@ -29,7 +29,10 @@
                     <a href="#">|</a>
                     <a href="${pageContext.request.contextPath}/join">
                         注册
-                        <%--退出--%>
+                    </a>
+                    <a href="#">|</a>
+                    <a href="${pageContext.request.contextPath}/logout">
+                        退出
                     </a>
                 </div>
 
@@ -47,9 +50,9 @@
             <div id="example-navbar-collapse" class="collapse navbar-collapse " aria-expanded="false" style="height: 1px;">
                 <ul class="navbar-nav my-nav nav ">
                     <li><a href="${pageContext.request.contextPath}/index">首页</a></li>
-                    <li><a href="${pageContext.request.contextPath}/profession">职业</a></li>
-                    <li><a href="${pageContext.request.contextPath}/recommend">推荐</a></li>
-                    <li><a href="${pageContext.request.contextPath}/list">用户列表</a></li>
+                    <li><a href="${pageContext.request.contextPath}/u/profession">职业</a></li>
+                    <li><a href="${pageContext.request.contextPath}/u/recommend">推荐</a></li>
+                    <li><a href="${pageContext.request.contextPath}/u/userList">用户列表</a></li>
                     <li><a href="#">关于</a></li>
                 </ul>
             </div>

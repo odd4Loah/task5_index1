@@ -42,8 +42,6 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         return studentInfoMapper.updateByPrimaryKey(record);
     }
 
-
-
     @Override
     public int insert(StudentInfo record) {
         return studentInfoMapper.insert(record);
@@ -57,7 +55,10 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         return studentInfo1.getPwd().equals(loginPwdHash);
     }
 
-
+    @Override
+    public int updateLoginTimeById(StudentInfo studentInfo) {
+        return studentInfoMapper.updateLoginTimeById(studentInfo);
+    }
 
     @Override
     public StudentInfo selectByPrimaryKey(Long id) {

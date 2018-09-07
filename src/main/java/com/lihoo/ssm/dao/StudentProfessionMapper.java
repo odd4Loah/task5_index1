@@ -16,7 +16,6 @@ public interface StudentProfessionMapper {
 
     int updateByPrimaryKey(StudentProfession record);
 
-
     //    ****
     int countAll();
 

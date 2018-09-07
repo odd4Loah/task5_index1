@@ -11,7 +11,7 @@
     </definition>
 
     <!--home页面-->
-    <definition name="*.pa" extends="2real">
+    <definition name="*.page" extends="2real">
         <!--HOME页-->
         <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
     </definition>

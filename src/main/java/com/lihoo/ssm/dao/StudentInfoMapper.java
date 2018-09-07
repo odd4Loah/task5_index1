@@ -25,5 +25,6 @@ public interface StudentInfoMapper {
 
     StudentInfo selectByPwd(String pwd);
 
+    int updateLoginTimeById(StudentInfo studentInfo);
 
 }

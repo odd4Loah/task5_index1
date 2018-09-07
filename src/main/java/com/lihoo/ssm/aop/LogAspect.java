@@ -34,7 +34,7 @@ public class LogAspect {
     //    joinPoint连接点
     @Around(value = "serviceAspect()")
     public Object around1(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("开始切面");
+        logger.info("开始计算数据库响应时间service");
 //        获取组件类名
         String className = pjp.getTarget().getClass().getName();
 //        获取调用方法名
@@ -65,7 +65,7 @@ public class LogAspect {
     //    joinPoint连接点
     @Around(value = "controlAspect()")
     public Object around2(ProceedingJoinPoint pjp) throws Throwable {
-//        logger.info("开始切面");
+        logger.info("开始计算数据库响应时间control");
 //        获取组件类名
         String className = pjp.getTarget().getClass().getName();
 //        获取调用方法名

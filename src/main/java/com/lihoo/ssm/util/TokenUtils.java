@@ -22,11 +22,11 @@ public class TokenUtils {
      * @return
      */
     public static String getToken(String token) {
-        logger.debug("生成token字符串：data = " + token);
+        logger.info("生成token字符串：data = " + token);
         try {
             token = DesUtil.encrypt(token);
         } catch (Exception e) {
-            logger.debug("生成TOKEN DES加密错误！");
+            logger.info("生成TOKEN DES加密错误！");
             e.printStackTrace();
         }
         return token;
@@ -40,7 +40,7 @@ public class TokenUtils {
         Long uid = 59L;
         Long loginTime = 111L;
         String a = String.valueOf(uid + loginTime);
-        logger.debug(getToken(a));
+        logger.info(getToken(a));
     }
 
 

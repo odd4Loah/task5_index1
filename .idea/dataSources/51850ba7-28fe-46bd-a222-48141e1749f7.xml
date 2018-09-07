@@ -859,7 +859,6 @@
     <column id="213" parent="202" name="username">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="214" parent="202" name="salt">
@@ -870,10 +869,9 @@
     <column id="215" parent="202" name="pwd">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="216" parent="202" name="create_at">
+    <column id="216" parent="202" name="log_at">
       <Position>5</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
