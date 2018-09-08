@@ -144,12 +144,13 @@ public class DesUtil {
      */
     public static void main(String[] args) {
 //        String basestr = "this is 我的 #$%^&()first encrypt program 知道吗?DES算法要求有一个可信任的随机数源 --//*。@@@1";
-        String basestr = "哈哈哈DES算法要求有一个可信任的随机数源啊";
+        String basestr = "node013308616xssvagyv7eixuml5t4.node0";
         String str1 = encrypt(basestr);
 
         System.out.println("原始值: " + basestr);
         System.out.println("加密后: " + str1);
         System.out.println("解密后: " + decrypt(str1));
+        System.out.println("解密后: " + decrypt(basestr));
         System.out.println("为空时 is : " + decrypt(encrypt("")));
 
     }

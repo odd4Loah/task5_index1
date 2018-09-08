@@ -21,20 +21,13 @@
                 <a href="#"><img class="head-icon" src="${pageContext.request.contextPath}/img/qq.png" alt=""></a>
                 <a href="#"><img class="head-icon" src="${pageContext.request.contextPath}/img/weibo.png" alt=""></a>
 
+
                 <div class="login-regs">
-                    <a href="${pageContext.request.contextPath}/login">
-                        登录
-                        <%--用户名：--%>
-                    </a>
+                    <a href="${pageContext.request.contextPath}/${status[2]}">${status[0]}</a>
                     <a href="#">|</a>
-                    <a href="${pageContext.request.contextPath}/join">
-                        注册
-                    </a>
-                    <a href="#">|</a>
-                    <a href="${pageContext.request.contextPath}/logout">
-                        退出
-                    </a>
+                    <a href="${pageContext.request.contextPath}/${status[3]}">${status[1]}</a>
                 </div>
+
 
             </div>
         </div>
@@ -47,12 +40,13 @@
                     <img src="${pageContext.request.contextPath}/img/menu.png" alt="#">
                 </button>
             </div>
-            <div id="example-navbar-collapse" class="collapse navbar-collapse " aria-expanded="false" style="height: 1px;">
-                <ul class="navbar-nav my-nav nav ">
+            <div id="example-navbar-collapse" class="collapse navbar-collapse  " aria-expanded="false" style="height: 1px;">
+                <img style="width: 2.5rem; position: relative; top: 0.24rem; right: 2.6rem;" src="${pageContext.request.contextPath}/img/home-logo-hs.png" alt="">
+                <ul class="navbar-nav my-nav nav">
                     <li><a href="${pageContext.request.contextPath}/index">首页</a></li>
                     <li><a href="${pageContext.request.contextPath}/u/profession">职业</a></li>
                     <li><a href="${pageContext.request.contextPath}/u/recommend">推荐</a></li>
-                    <li><a href="${pageContext.request.contextPath}/u/userList">用户列表</a></li>
+                    <%--<li><a href="${pageContext.request.contextPath}/u/userList">用户列表</a></li>--%>
                     <li><a href="#">关于</a></li>
                 </ul>
             </div>

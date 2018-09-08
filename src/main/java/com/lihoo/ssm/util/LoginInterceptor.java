@@ -44,7 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 //                    取出这个cookie
                     String tokenValue = cookies[i].getValue();
                     logger.info("这个cookie中，名为token的值为：" + tokenValue);
-//                    破解token
+//                    解密token
                     String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
                     logger.info("解码token得到用户id和登录时间拼接的字符串为：" + tokenValueDecrypt);
 //                    因为之前是用","分隔的用户id和登录时间，所以需要拆解成两个部分
@@ -54,12 +54,18 @@ public class LoginInterceptor implements HandlerInterceptor {
                     logger.info("数组索引为“0”的部分是用户id" + uid);
                     String loginTime = arrToken[1];
                     logger.info("数组索引为“1”的部分是登录时间" + loginTime);
+                    String uname = arrToken[2];
+                    logger.info("数组索引为“2”的部分是用户名" + uname);
+
 //                    对解码之后的token中的登录时间与数据库保存的登录时间做对比
 //                    因为uid是一个String，需要转换为Long类型
-                    Long dbUid = Long.parseLong(uid);
-                    StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
-                    logger.info("用户信息：" + stu);
-                    Long dblLogtime = stu.getLogAt();
+                    StudentInfo stuFindByName = studentInfoService.selectByUsername(uname);
+                    logger.info("用户信息：" + stuFindByName);
+                    Long dblLogtime = stuFindByName.getLogAt();
+//                    Long dbUid = Long.parseLong(uid);
+//                    StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
+//                    logger.info("用户信息：" + stu);
+//                    Long dblLogtime = stu.getLogAt();
                     logger.info("数据库存储的登录时间：" + dblLogtime);
                     Long loginTimeLong = Long.parseLong(loginTime);
                     if (loginTimeLong.equals(dblLogtime)) {

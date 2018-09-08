@@ -9,6 +9,7 @@ import com.lihoo.ssm.service.StudentInfoService;
 import com.lihoo.ssm.service.StudentProfessionService;
 import com.lihoo.ssm.util.AddSalt;
 import com.lihoo.ssm.util.DesUtil;
+import com.lihoo.ssm.util.LoginStatus;
 import com.lihoo.ssm.util.MD5Encryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -95,13 +97,6 @@ public class IndexController {
         return "login.page";
     }
 
-    // 用户退出时清除用户session里绑定到指定名称的对象
-    @RequestMapping("/logout")
-    public String logOut(HttpSession session){
-        session.removeAttribute("student");
-        return "redirect: login";
-    }
-
     /**
      登录验证，token加密，cookie生成发送
      */
@@ -110,6 +105,7 @@ public class IndexController {
                         @RequestParam(value = "pwd",required = false) String pwd,
                         HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                         Model model) {
+
         //        查询用户列表
         List<StudentInfo> stuList = studentInfoService.selectAll();
         for (StudentInfo list : stuList) {
@@ -130,17 +126,18 @@ public class IndexController {
         logger.info(addTime);
         logger.info(updateStu);
         logger.info("当前登录时间是：" + currentTime);
-//        定义需要加密的token
-        String idAndTime = id + "," + currentTime;
-        logger.info("看一手这个id+时间的字符串：" + idAndTime );
-//        将这个字符串进行加密，生成Token
-        String token = DesUtil.encrypt(idAndTime);
+//        定义需要加密的token( id + 登录时间 + 用户名 )
+        String idAndTimeAndUsername = id + "," + currentTime + "," + username;
+        logger.info("看一手这个（ id + 时间 + 用户名 ）的字符串：" + idAndTimeAndUsername );
+//        logger.info("看一手这个id+时间的字符串：" + idAndTime );
+//        加密，生成Token
+        String token = DesUtil.encrypt(idAndTimeAndUsername);
         logger.info("****这就是Token：" + token);
 //        保存到Cookies
         Cookie cookie = new Cookie("token", token);
 //        设置一下Cookie
 //        切记cookie时间设置，当你刷新，超时cookie失效
-        cookie.setMaxAge(60);
+        cookie.setMaxAge(10);
         cookie.setPath("/");
 //        添加到请求中
         httpServletResponse.addCookie(cookie);
@@ -154,9 +151,9 @@ public class IndexController {
 //        验证用户名是否在数据库中
         Boolean isNameSame = stu.getUsername().equals(username);
         logger.info(isNameSame);
-//        验证密码是否在数据库中MD5加密之后一致
+//        验证密码是否在数据库中MD5加盐加密之后一致
         Boolean isPwdSame = studentInfoService.verifyPwd(loginUser);
-        logger.info(isPwdSame);
+        logger.info("是否一致：" + isPwdSame);
 ////      查找用户是否存在
         if (isNameSame && isPwdSame) {
             logger.info("登录成功");
@@ -168,14 +165,39 @@ public class IndexController {
         return "error.page";
     }
 
+//    因为状态栏每个页面都有，所以每个路径下都要写一个下面的login状态Util
+//    @RequestMapping("")
+//    public String header(HttpServletRequest request, Model model) {
+//        String[] status = LoginStatus.status(request);
+//        model.addAttribute("status", status);
+//        return "index.page";
+//    }
+
+
+//     用户退出时清除用户session里绑定到指定名称的对象
+    @RequestMapping("/logout")
+    public String logOut(HttpServletRequest request, HttpServletResponse response){
+        Cookie cookieKiller = new Cookie("token", null);
+        cookieKiller.setMaxAge(0);
+        cookieKiller.setPath("/");
+        response.addCookie(cookieKiller);
+        logger.info("退出登录，清除Cookie");
+        return "redirect:/index";
+    }
+
     @Autowired
     StudentHomeService studentHomeService;
 //  主页
     @RequestMapping("/index")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         List<StudentHome> selectGreatStudent = studentHomeService.selectGreatStudent();
         int countAll = studentHomeService.countAll();
         int workingCount = studentHomeService.workingCount();
+
+        String[] status = LoginStatus.status(request);
+        logger.info("我王境泽就是饿死：" + status);
+        model.addAttribute("status", status);
+
         model.addAttribute("selectGreatStudent", selectGreatStudent);
         model.addAttribute("countAll", countAll);
         model.addAttribute("workingCount", workingCount);
@@ -203,19 +225,27 @@ public class IndexController {
                         logger.info("数组索引为“0”的部分是用户id:" + uid);
                         String loginTime = arrToken[1];
                         logger.info("数组索引为“1”的部分是登录时间:" + loginTime);
+                        String uname = arrToken[2];
+                        logger.info("数组索引为“2”的部分是用户名:" + uname);
+                        StudentInfo stuFindByName = studentInfoService.selectByUsername(uname);
+                        logger.info("用户信息：" + stuFindByName);
+                        Long dblLogtime = stuFindByName.getLogAt();
 //                        因为uid是一个String，需要转换为Long类型
-                        Long dbUid = Long.parseLong(uid);
-                        StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
-                        logger.info("用户信息：" + stu);
-                        Long dblLogtime = stu.getLogAt();
+//                        Long dbUid = Long.parseLong(uid);
+//                        StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
+//                        logger.info("用户信息：" + stu);
+//                        Long dblLogtime = stu.getLogAt();
                         logger.info("数据库存储的登录时间：" + dblLogtime);
                         Long loginTimeLong = Long.parseLong(loginTime);
                         if (loginTimeLong.equals(dblLogtime)) {
                             List<StudentProfession> selectAll = studentProfessionService.selectAll();
-                            int countAll = studentProfessionService.countAll();
-
                             model.addAttribute("selectAll", selectAll);
+                            int countAll = studentProfessionService.countAll();
                             model.addAttribute("countAll", countAll);
+
+                            String[] status = LoginStatus.status(request);
+                            logger.info("也不带吃你们一口东西：" + status);
+                            model.addAttribute("status", status);
 
                             return "profession.home";
                         }
@@ -248,11 +278,16 @@ public class IndexController {
                         logger.info("数组索引为“0”的部分是用户id:" + uid);
                         String loginTime = arrToken[1];
                         logger.info("数组索引为“1”的部分是登录时间:" + loginTime);
+                        String uname = arrToken[2];
+                        logger.info("数组索引为“2”的部分是用户名:" + uname);
+                        StudentInfo stuFindByName = studentInfoService.selectByUsername(uname);
+                        logger.info("用户信息：" + stuFindByName);
+                        Long dblLogtime = stuFindByName.getLogAt();
 //                        因为uid是一个String，需要转换为Long类型
-                        Long dbUid = Long.parseLong(uid);
-                        StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
-                        logger.info("用户信息：" + stu);
-                        Long dblLogtime = stu.getLogAt();
+//                        Long dbUid = Long.parseLong(uid);
+//                        StudentInfo stu = studentInfoService.selectByPrimaryKey(dbUid);
+//                        logger.info("用户信息：" + stu);
+//                        Long dblLogtime = stu.getLogAt();
                         logger.info("数据库存储的登录时间：" + dblLogtime);
                         Long loginTimeLong = Long.parseLong(loginTime);
                         if (loginTimeLong.equals(dblLogtime)) {
@@ -260,6 +295,11 @@ public class IndexController {
                             model.addAttribute("selectAll", selectAll);
                             int countAll = studentProfessionService.countAll();
                             model.addAttribute("countAll", countAll);
+
+                            String[] status = LoginStatus.status(request);
+                            logger.info("哎呀，真香：" + status);
+                            model.addAttribute("status", status);
+
                             return "recommend.home";
                         }
                     } catch (Exception e) {
@@ -288,12 +328,11 @@ public class IndexController {
         if (cookies != null) {
             return "userList.home";
         }
+        String[] status = LoginStatus.status(request);
+        logger.info("哎呀，真香：" + status);
+        model.addAttribute("status", status);
+
         return "redirect:/login";
     }
-
-
-
-
-
 
 }
