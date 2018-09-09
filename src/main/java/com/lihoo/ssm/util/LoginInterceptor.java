@@ -2,6 +2,7 @@ package com.lihoo.ssm.util;
 
 import com.lihoo.ssm.model.StudentInfo;
 import com.lihoo.ssm.service.StudentInfoService;
+import io.jsonwebtoken.Claims;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,13 @@ public class LoginInterceptor implements HandlerInterceptor {
                     String tokenValue = cookies[i].getValue();
                     logger.info("这个cookie中，名为token的值为：" + tokenValue);
 //                    解密token
-                    String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+                    Claims claims = JwtUtils2.parseJWT(tokenValue);
+                    System.out.println(claims);
+                    String tokenValueDecrypt =  claims.getSubject();
+                    System.out.println(tokenValueDecrypt);
+
+//                    String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+
                     logger.info("解码token得到用户id和登录时间拼接的字符串为：" + tokenValueDecrypt);
 //                    因为之前是用","分隔的用户id和登录时间，所以需要拆解成两个部分
                     String[] arrToken = tokenValueDecrypt.split(",");

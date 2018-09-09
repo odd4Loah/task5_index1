@@ -14,11 +14,11 @@ import java.util.Date;
 
 
 public class DateUtils {
-    private static String DATE_FORMAT = "yyyy-MM-dd";
+    public static String DATE_FORMAT = "yyyy-MM-dd";
 
-    private static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    private static String DATE_FORMAT_CHINESE = "yyyy年M月d日";
+    public static String DATE_FORMAT_CHINESE = "yyyy年M月d日-HH:mm:ss";
 
 
     /**
@@ -30,7 +30,7 @@ public class DateUtils {
      */
     public static String getCurrentDate() {
         String datestr = null;
-        SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATE_FORMAT);
+        SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATE_FORMAT_CHINESE);
         datestr = df.format(new Date());
         return datestr;
     }
@@ -79,7 +79,7 @@ public class DateUtils {
      */
     public static Date stringToDate(String datestr) {
 
-        if(datestr ==null ||datestr.equals("")){
+        if(datestr ==null || "".equals(datestr)){
             return null;
         }
         Date date = new Date();
@@ -87,7 +87,7 @@ public class DateUtils {
         try {
             date = df.parse(datestr);
         } catch (ParseException e) {
-            date=DateUtils.stringToDate(datestr,"yyyyMMdd");
+            date=DateUtils.stringToDate(datestr,"yyyy-MM-dd");
         }
         return date;
     }
@@ -95,7 +95,7 @@ public class DateUtils {
     /**
      * 将字符串日期转换为日期格式
      * 自定義格式
-     *
+     *解析（秒）的字符串，一般数据库都为毫秒
      * @param datestr
      * @return
      *
@@ -514,17 +514,45 @@ public class DateUtils {
      */
     public static void main(String[] args) {
         String temp = DateUtils.dateToString(getLastDayOfMonth(new Date()), DateUtils.DATE_FORMAT_CHINESE);
+//        String temp11 = DateUtils.dateToString(dateToDateTime(new Date()), DateUtils.DATE_FORMAT_CHINESE);
 
         String s = DateUtils.dateToString(DateUtils.addDay(DateUtils.addYear(new Date(),0),0));
 //        String today = DateUtils.getCurrentDate();
-        String today = DateUtils.getCurrentDateTime();
+//        String today = DateUtils.getCurrentDateTime();
         String today1 = DateUtils.getCurrentDateTime();
+//        Date aaa = DateUtils.stringToDate("1536455311", DATE_FORMAT);
 
 //        long s = DateUtils.getDayByMinusDate("2012-01-01", "2012-12-31");
         System.err.println(s);
+//        System.out.println(aaa);
         System.err.println(temp);
-        System.err.println(today);
+//        System.err.println(temp11);
+//        System.err.println(today);
         System.err.println(today1);
+
+
+
+//        String date = "2001-03-15 15-37-05";
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");//24小时制
+//      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");//12小时制
+//        long time2 = 0;
+//        try {
+//            time2 = simpleDateFormat.parse(date).getTime();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(time2);
+
+//        long time3 = System.currentTimeMillis() + 5000 *1000;
+//        long time4 = 1536455319;
+//
+//        Date date2 = new Date();
+//        Date date88 = new Date();
+//        date2.setTime(time3);
+//        date88.setTime(time4);
+////        System.out.println(simpleDateFormat.format(date2));
+//
+//        System.out.println(simpleDateFormat.format(date88));
 
 
     }

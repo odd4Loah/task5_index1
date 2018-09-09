@@ -23,9 +23,14 @@
 
 
                 <div class="login-regs">
+                    <a href="">${status[4]}</a>
+                    <a href="#">|</a>
+                    <a href="">${status[5]}</a>
+                    <a href="#">|</a>
                     <a href="${pageContext.request.contextPath}/${status[2]}">${status[0]}</a>
                     <a href="#">|</a>
                     <a href="${pageContext.request.contextPath}/${status[3]}">${status[1]}</a>
+
                 </div>
 
 

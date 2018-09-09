@@ -7,10 +7,8 @@ import com.lihoo.ssm.model.StudentProfession;
 import com.lihoo.ssm.service.StudentHomeService;
 import com.lihoo.ssm.service.StudentInfoService;
 import com.lihoo.ssm.service.StudentProfessionService;
-import com.lihoo.ssm.util.AddSalt;
-import com.lihoo.ssm.util.DesUtil;
-import com.lihoo.ssm.util.LoginStatus;
-import com.lihoo.ssm.util.MD5Encryption;
+import com.lihoo.ssm.util.*;
+import io.jsonwebtoken.Claims;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +102,7 @@ public class IndexController {
     public String login(@RequestParam(value = "username",required = false) String username,
                         @RequestParam(value = "pwd",required = false) String pwd,
                         HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-                        Model model) {
+                        Model model) throws Exception {
 
         //        查询用户列表
         List<StudentInfo> stuList = studentInfoService.selectAll();
@@ -126,15 +124,21 @@ public class IndexController {
         logger.info(addTime);
         logger.info(updateStu);
         logger.info("当前登录时间是：" + currentTime);
+
 //        定义需要加密的token( id + 登录时间 + 用户名 )
         String idAndTimeAndUsername = id + "," + currentTime + "," + username;
         logger.info("看一手这个（ id + 时间 + 用户名 ）的字符串：" + idAndTimeAndUsername );
-//        logger.info("看一手这个id+时间的字符串：" + idAndTime );
+
 //        加密，生成Token
-        String token = DesUtil.encrypt(idAndTimeAndUsername);
-        logger.info("****这就是Token：" + token);
+        String jwtid = "123456";
+        String jwtToken = JwtUtils2.createJWT(jwtid,idAndTimeAndUsername,currentTime);
+        System.out.println("****JWT生成牛皮Token：" + jwtToken);
+
+//        String token = DesUtil.encrypt(idAndTimeAndUsername);
+//        logger.info("****这就是Token：" + token);
 //        保存到Cookies
-        Cookie cookie = new Cookie("token", token);
+        Cookie cookie = new Cookie("token", jwtToken);
+//        Cookie cookie = new Cookie("token", token);
 //        设置一下Cookie
 //        切记cookie时间设置，当你刷新，超时cookie失效
         cookie.setMaxAge(10);
@@ -189,7 +193,7 @@ public class IndexController {
     StudentHomeService studentHomeService;
 //  主页
     @RequestMapping("/index")
-    public String home(Model model, HttpServletRequest request) {
+    public String home(Model model, HttpServletRequest request) throws Exception {
         List<StudentHome> selectGreatStudent = studentHomeService.selectGreatStudent();
         int countAll = studentHomeService.countAll();
         int workingCount = studentHomeService.workingCount();
@@ -217,7 +221,15 @@ public class IndexController {
                     try {
                         String tokenValue = cookies[i].getValue();
                         logger.info("这个cookie中，名为token的值为：" + tokenValue);
-                        String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+
+//                        解密token
+                        Claims claims = JwtUtils2.parseJWT(tokenValue);
+                        System.out.println(claims);
+                        String tokenValueDecrypt =  claims.getSubject();
+                        System.out.println(tokenValueDecrypt);
+
+//                        String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+
                         logger.info("解码token得到用户id和登录时间拼接的字符串为：" + tokenValueDecrypt);
                         String[] arrToken = tokenValueDecrypt.split(",");
                         logger.info("得到一个数组：" + arrToken);
@@ -270,7 +282,13 @@ public class IndexController {
                     try {
                         String tokenValue = cookies[i].getValue();
                         logger.info("这个cookie中，名为token的值为：" + tokenValue);
-                        String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+//                        解密token
+                        Claims claims = JwtUtils2.parseJWT(tokenValue);
+                        System.out.println(claims);
+                        String tokenValueDecrypt =  claims.getSubject();
+                        System.out.println(tokenValueDecrypt);
+//                        String tokenValueDecrypt = DesUtil.decrypt(tokenValue);
+
                         logger.info("解码token得到用户id和登录时间拼接的字符串为：" + tokenValueDecrypt);
                         String[] arrToken = tokenValueDecrypt.split(",");
                         logger.info("得到一个数组：" + arrToken);
@@ -323,7 +341,7 @@ public class IndexController {
      * 用户列表
      */
     @RequestMapping("/u/userList")
-    public String userList(HttpServletRequest request, HttpServletResponse response,Model model) {
+    public String userList(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             return "userList.home";
